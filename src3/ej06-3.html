@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<!--
+05-06 Imágenes
+En esta práctica debes ingresar varias imágenes en una página web y comparar el tiempo de carga hasta minimizarlo por completo.
+Utiliza sitios libres de derechos para descargar 12 imágenes con la resolución más alta posible. Incluye formatos JPG, GIF y PNG. 
+Crear una página web para organizar las imágenes usando el modelo flexbox, de modo que quepan dos imágenes por ancho.Obtendrás 6 filas de dos imágenes por fila. NO CAMBIAR EL TAMAÑO ORIGINAL.
+Agregue etiquetas ALT a todas las imágenes. Respeta el copyleft utilizando las etiquetas apropiadas para dar el crédito necesario al autor de la imagen.
+Crear un proyecto en Github y publicar la página. Siga el siguiente manual:https://docs.github.com/es/pages/getting-started-with-github-pages/creating-a-github-pages-site
+Usar herramientas de Google (https://pagespeed.web.dev/) para comprobar el tiempo de carga de la página, crear una tabla e indicar el tamaño medio, formato de imagen utilizado y tiempo de carga.Agregue la tabla a la página web.
+COPIAR LA PÁGINA WEB EN OTRA.Optimiza el tamaño de las imágenes. Utiliza etiquetas PICTURE, SRCSET y MEDIA para incluir distintos tamaños y formatos de imagen.  Realiza nuevamente la prueba de tiempo de carga y actualiza los datos de la tabla.
+COPIA LA ÚLTIMA PÁGINA WEB EN OTRA.Ahora seguiremos los consejos de la página de Google. en cuanto a formatos.Puedes utilizar la herramienta gráfica que quieras para configurarlos, a modo de ejemplo aquí tienes varias: https://www.dosmedia.com/tratamiento-de-imagenes-para-tu-pagina-web/
+Aplicación de Estilos CSS:
+Usar object-fit y object-position para asegurar que las imágenes se muestren correctamente en su contenedor.
+Implementar srcset y sizes en las imágenes para hacerlas responsivas en diferentes tamaños de pantalla.
+Utilizar la etiqueta <picture> para algunas imágenes, ofreciendo diferentes formatos según el navegador.
+Efectos Visuales Adicionales:
+Aplicar diferentes filters a algunas imágenes para cambiar su apariencia (por ejemplo, sepia, grayscale).
+Utilizar opacity en algunas imágenes para crear un efecto de transparencia.
+Implementar clip-path en al menos una imagen para darle una forma única.
+Añadir border-image a alguna imagen para mostrar cómo se puede usar una imagen como borde.
+Responsividad:
+Asegurarse de que la galería se vea bien en diferentes tamaños de pantalla, incluyendo teléfonos móviles y tablets.
+Interactividad:
+Agregar interactividad con JavaScript, como cambiar la opacidad o el filtro al pasar el mouse sobre las imágenes.
+ENTREGA:  una sóla imagen con  las tres capturas de pantalla  y un  sólo  documento  HTML con el código final.
+-->
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Images of witches.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 6</title>
+    <style>
+        @media (max-width: 768px) {
+            .imagen {
+                flex: 0 0 100%;
+            }
+
+            table {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .imagen {
+                flex: 0 0 100%;
+            }
+
+            table td {
+                font-size: 14px;
+            }
+
+            table td {
+                display: block;
+                text-align: center;
+            }
+
+            #cabezera {
+                display: none;
+            }
+
+            #grande {
+                display: none;
+            }
+
+            #pequenio {
+                display: inline;
+            }
+
+            span {
+                font-weight: 900;
+            }
+        }
+
+        @media (min-width: 480px) {
+            #pequenio {
+                display: none;
+            }
+        }
+
+        #contenedor {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .fila {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            margin-bottom: 10px;
+        }
+
+        .imagen {
+            flex: 0 0 48%;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+
+        table {
+            border: solid 1px black;
+            border-collapse: collapse;
+        }
+
+        table td {
+            border: solid 1px black;
+            padding: 5px;
+        }
+
+        #cabezera {
+            font-weight: 900;
+        }
+
+        #uno {
+            filter: blur(3px);
+        }
+
+        #dos {
+            filter: brightness(200%);
+        }
+
+        #tres {
+            filter: contrast(200%);
+        }
+
+        /* #tres img {            
+            width: 200px;
+            height: 350px;
+            object-fit: cover;
+            object-position: 90% 0%;
+        } */
+
+        #cuatro {
+            filter: drop-shadow(8px 8px 10px gray);
+        }
+
+        #cinco {
+            filter: grayscale(100%);
+        }
+
+        #seis {
+            filter: hue-rotate(90deg);
+        }
+
+        #siete {
+            filter: invert(100%);
+        }
+
+        #ocho {
+            filter: opacity(30%);
+        }
+
+        #nueve {
+            filter: saturate(4);
+        }
+
+        #diez {
+            filter: sepia(100%);
+        }
+
+        #imgDiez {
+            clip-path: polygon(50% 0%, 100% 50%, 50% 95%, 0% 50%);
+        }
+
+        #once {
+            filter: brightness(150%) grayscale(100%);
+        }
+
+        #imgOnce {
+            border: 20px solid transparent;
+            border-image: url(./assets/images/marco.png) 20% round;
+        }
+
+        #doce {
+            filter: contrast(200%) sepia(100%) saturate(2);
+            opacity: 70%;
+        }
+    </style>
+</head>
+
+<body>    
+    <!-- TODO: Ahora seguiremos los consejos de la página de Google -->
+    <!-- https://sereto111.github.io/ImagenesEj6-2DAW/src/ -->
+    <!-- https://pagespeed.web.dev/analysis/https-sereto111-github-io-ImagenesEj6-2DAW-src2/p1wk6o2ogt?form_factor=desktop -->
+    <div id="contenedor">
+        <div class="fila">
+            <div class="imagen">
+                <picture id="uno">
+                    <source media="(min-width: 800px)" srcset="./assets/images/1.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/1.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/1.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/1-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/1-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/1-512px.jpg">
+                    <img src="./assets/images/1-256px.jpg" alt="bruja 1" loading="lazy">
+                </picture>
+            </div>
+            <div class="imagen">
+                <picture id="dos">
+                    <source media="(min-width: 800px)" srcset="./assets/images/2.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/2.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/2.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/2-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/2-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/2-512px.jpg">
+                    <img src="./assets/images/2-256px.jpg" alt="bruja 2" loading="lazy">
+                </picture>
+            </div>
+        </div>
+        <div class="fila">
+            <div class="imagen">
+                <picture id="tres">
+                    <source media="(min-width: 800px)" srcset="./assets/images/3.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/3.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/3.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/3-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/3-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/3-512px.jpg">
+                    <img src="./assets/images/3-256px.jpg" alt="bruja 3" loading="lazy">
+                </picture>
+            </div>
+            <div class="imagen">
+                <picture id="cuatro">
+                    <source media="(min-width: 800px)" srcset="./assets/images/4.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/4.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/4.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/4-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/4-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/4-512px.jpg">
+                    <img src="./assets/images/4-256px.jpg" alt="bruja 4" loading="lazy">
+                </picture>
+            </div>
+        </div>
+        <div class="fila">
+            <div class="imagen">
+                <picture id="cinco">
+                    <source media="(min-width: 800px)" srcset="./assets/images/5.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/5.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/5.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/5-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/5-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/5-512px.jpg">
+                    <img src="./assets/images/5-256px.jpg" alt="bruja 5" loading="lazy">
+                </picture>
+            </div>
+            <div class="imagen">
+                <picture id="seis">
+                    <source media="(min-width: 800px)" srcset="./assets/images/6.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/6.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/6.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/6-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/6-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/6-512px.jpg">
+                    <img src="./assets/images/6-256px.jpg" alt="bruja 6" loading="lazy">
+                </picture>
+            </div>
+        </div>
+        <div class="fila">
+            <div class="imagen">
+                <picture id="siete">
+                    <source media="(min-width: 800px)" srcset="./assets/images/7.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/7.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/7.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/7-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/7-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/7-512px.jpg">
+                    <img src="./assets/images/7-256px.jpg" alt="bruja 7" loading="lazy">
+                </picture>
+            </div>
+            <div class="imagen">
+                <picture id="ocho">
+                    <source media="(min-width: 800px)" srcset="./assets/images/8.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/8.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/8.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/8-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/8-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/8-512px.jpg">
+                    <img src="./assets/images/8-256px.jpg" alt="bruja 8" loading="lazy">
+                </picture>
+            </div>
+        </div>
+        <div class="fila">
+            <div class="imagen">
+                <picture id="nueve">
+                    <source media="(min-width: 800px)" srcset="./assets/images/9.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/9.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/9.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/9-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/9-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/9-512px.jpg">
+                    <img src="./assets/images/9-256px.jpg" alt="bruja 9" loading="lazy">
+                </picture>
+            </div>
+            <div class="imagen" id="imgDiez">
+                <picture id="diez">
+                    <source media="(min-width: 800px)" srcset="./assets/images/10.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/10.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/10.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/10-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/10-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/10-512px.jpg">
+                    <img src="./assets/images/10-256px.jpg" alt="bruja 10" loading="lazy">
+                </picture>
+            </div>
+        </div>
+        <div class="fila">
+            <div class="imagen" id="imgOnce">
+                <picture id="once">
+                    <source media="(min-width: 800px)" srcset="./assets/images/11.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/11.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/11.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/11-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/11-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/11-512px.jpg">
+                    <img src="./assets/images/11-256px.jpg" alt="bruja 11" loading="lazy">
+                </picture>
+            </div>
+            <div class="imagen">
+                <picture id="doce">
+                    <source media="(min-width: 800px)" srcset="./assets/images/12.avif" type="image/avif">
+                    <source media="(min-width: 800px)" srcset="./assets/images/12.webp" type="image/webp">
+                    <source media="(min-width: 800px)" srcset="./assets/images/12.jpg">
+                    <source media="(min-width: 400px)" srcset="./assets/images/12-512px.avif" type="image/avif">
+                    <source media="(min-width: 400px)" srcset="./assets/images/12-512px.webp" type="image/webp">
+                    <source media="(min-width: 400px)" srcset="./assets/images/12-512px.jpg">
+                    <img src="./assets/images/12-256px.jpg" alt="bruja 12" loading="lazy">
+                </picture>
+            </div>
+        </div>
+        <div>
+            <table>
+                <tr id="cabezera">
+                    <td>Tamaño medio</td>
+                    <td>Formato de imagen</td>
+                    <td>Tiempo de carga</td>
+                </tr>
+                <tr id="grande">
+                    <td>288 KB</td>
+                    <td>jpg</td>
+                    <td>10 ms</td>
+                </tr>
+                <tr id="pequenio">
+                    <td><span>Tamaño medio:</span> 288 KB</td>
+                    <td><span>Formato de imagen:</span> jpg</td>
+                    <td><span>Tiempo de carga:</span>10 ms</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    const imagenes = document.querySelectorAll('.imagen');
+
+    imagenes.forEach(imagen => {
+        imagen.addEventListener('mouseover', () => {
+            imagen.style.opacity = '0.7';
+        });
+
+        imagen.addEventListener('mouseout', () => {
+            imagen.style.opacity = '1';
+        });
+    });
+</script>
+
+</html>
